@@ -7,24 +7,29 @@ import scala.annotation.tailrec
 import scala.io.StdIn
 import scala.util.Random
 
-object MainApp extends App {
+object MainApp2 extends App {
   val nRNG = Random.nextInt(100)
+  var intentos = 1
+  println("Piensa en un digito del 0 al 100")
 @tailrec
 def loop: Unit = {
-  println("Piensa en un digito del 0 al 100")
   val num1 = StdIn.readInt()
   if (num1 == nRNG) {
     println("Has acertado!")
   }
   else if (num1 < nRNG) {
     println("Te has quedado corto")
+    intentos = intentos + 1
+    println("Intentalo de nuevo")
     loop
   }
   else {
     println("Es posible que te hayas pasado")
+    intentos = intentos + 1
+    println("Intentalo de nuevo")
     loop
   }
 }
   loop
-println (s"$nRNG era el numero")
+println (s"$nRNG era el numero, te ha tomado $intentos intentos")
 }
