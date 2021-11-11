@@ -9,14 +9,19 @@
 
 import scala.io.StdIn
 
-
 object Triangulo extends App {
- println("Define la altura del triangulico")
+  println("Define la altura del triangulico")
   val num1 = StdIn.readInt()
 
-
-
-
-
-
+  def loop(seguir: Int): Unit = {
+    if (seguir != num1) {
+      val sequencia = seguir + 1
+      val espacios = List.fill(num1 - sequencia)(" ")
+      val asteriscos = List.fill(sequencia)("*")
+      println(asteriscos.mkString(espacios.mkString, " ", ""))
+      loop(sequencia)
+    } else ()
+  }
+  loop(0)
+  println("Aqui tienes tu magnifica piramide, tusinzuelinillo")
 }
