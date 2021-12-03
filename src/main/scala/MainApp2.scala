@@ -12,6 +12,7 @@ object MainApp2 extends App {
   var intentos = 1
   println("Piensa en un digito del 0 al 100")
 @tailrec
+  //no importa el nombre, puedes usar el def como quieras, ademas de añadirle parametros para el loop
 def loop: Unit = {
   val num1 = StdIn.readInt()
   if (num1 == nRNG) {
