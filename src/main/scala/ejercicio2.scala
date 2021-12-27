@@ -35,7 +35,7 @@ object Ejercicio2 extends App {
       val ending = pronombre map {
         case Nonbinary        => ""
         case Mister if casado => "Señor"
-        case Miss if casado   => "Señor"
+        case Miss if casado   => "Señora"
         case Mister           => "Señorito"
         case Miss             => "Señorita"
       }
