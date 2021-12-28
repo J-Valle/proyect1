@@ -10,23 +10,31 @@ trait Console[F[_]] {
   def readInt: F[Int]
   def readString: F[String]
 }
-object ConsoleTry extends Console[Try] {
 
-  override def readBoolean: Try[Boolean] = Try(StdIn.readBoolean())
+object Console {
+  //crear metodo apply
+  def apply[F[_]](implicit c: Console[F]): Console[F] = c
 
+  implicit object ConsoleTry extends Console[Try] {
 
-  override def readInt: Try[Int] = Try(StdIn.readInt())
+    override def readBoolean: Try[Boolean] = Try(StdIn.readBoolean())
 
-  override def readString: Try[String] = Try(StdIn.readLine())
-}
+    override def readInt: Try[Int] = Try(StdIn.readInt())
 
-//Option seria para poder ignorar un caso de error
+    override def readString: Try[String] = Try(StdIn.readLine())
+  }
 
-object ConsoleOption extends Console[Option] {
+  //Option seria para poder ignorar un caso de error
 
-  override def readBoolean: Option[Boolean] = Try(StdIn.readBoolean()).toOption
+  implicit object ConsoleOption extends Console[Option] {
 
-  override def readInt: Option[Int] = Try(StdIn.readInt()).toOption
+    override def readBoolean: Option[Boolean] = Try(
+      StdIn.readBoolean()
+    ).toOption
 
-  override def readString: Option[String] = Try(StdIn.readLine()).toOption
+    override def readInt: Option[Int] = Try(StdIn.readInt()).toOption
+
+    override def readString: Option[String] = Try(StdIn.readLine()).toOption
+  }
+
 }

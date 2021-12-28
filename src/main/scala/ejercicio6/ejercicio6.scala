@@ -13,11 +13,12 @@ import scala.util.{Failure, Success, Try}
 
 object Triangulo extends App {
   println("¿Quien va a crear esta magnificencia?")
-  val autor = ConsoleOption.readString
+  val autor = Console[Option].readString
+  // def inicial para el ejercicio del triangulo
   def beggining: Unit = {
 
     println("Define la altura del triangulico")
-    val num1 = ConsoleTry.readInt
+    val num1 = Console[Try].readInt
     //-----------------
     //if (num1.isSuccess)
     //loop(0, num1.get)
@@ -25,12 +26,17 @@ object Triangulo extends App {
     //beggining
     //}
     //-----------------
+    //match con caso de success y failure para el try solicitado anterior
+    //Success en caso de que num1 sea un numero, failure lo devuelve al principio
     num1 match {
       case Success(num1) => loop(0, num1)
       case Failure(_)    => beggining
     }
   }
+  //el tailrec es una anotacion para mantener la recursividad optimizada, avisandome si deja de estarlo
   @tailrec
+  //Al haber colocado num1 como segunda parte de loop, se crea una conexion entre ambos pudiendo usarlo en ambos
+  //
   def loop(seguir: Int, numberino: Int): Unit = {
     if (seguir != numberino) {
       val sequencia = seguir + 1
@@ -41,7 +47,8 @@ object Triangulo extends App {
     } else ()
   }
   beggining
-
+//patern matching con some y none del option usado para el autor, la exclamacion avisa de que se busca lo contrario de
+  //lo escrito en la formula, en este caso: se busca si el dato introducido NO esta en blanco
   autor match {
     case Some(autorname) if !autorname.isBlank =>
       println(s"Created by $autorname")
@@ -50,20 +57,24 @@ object Triangulo extends App {
 
   println("Aqui tienes tu magnifica piramide, tusinzuelinillo")
   //----
+  //def para el caso de la despedida
   def goodbye: Unit = {
     println("Adios mi querido.... ¿Quien eras?")
-    val pathway = ConsoleOption.readString
+    val pathway = Console[Option].readString
+    //patern matching para el option solicitado
     pathway match {
+      //primer caso, miramos si el dato introducido, el cual se convierte a int, no este vacio
       case Some(firstPath) if firstPath.toIntOption.nonEmpty =>
+        //se convierte el resultado final a Int para poder introducirlo correctamente
         println("Adios " * firstPath.toInt)
+        //en este caso, de nuevo, exclamacion para denotar lo contrario, se busca si existe en cualquiera de los
+      //caracteres que hay uno solo que sea un numero, osease, que lo acepte si no tiene ningun numero
       case Some(secondPath) if !secondPath.exists(letter => letter.isDigit) =>
         println(s"Adios $secondPath.")
       case _ =>
         println("¿Pero que me ah dixo?")
         goodbye
     }
-    //Coger el string del option y ver si es un int, si lo es, va a un lado del either, sino al otro. En base a ello se
-    //hara una lagica u otra
   }
   goodbye
 }
