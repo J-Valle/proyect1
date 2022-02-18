@@ -10,12 +10,13 @@ trait Console[F[_]] {
   def readInt: F[Int]
   def readString: F[String]
 }
+//pasar de implicit object a implicit value
 
 object Console {
   //crear metodo apply
   def apply[F[_]](implicit c: Console[F]): Console[F] = c
 
-  implicit object ConsoleTry extends Console[Try] {
+  implicit val ConsoleTry  = new Console[Try] {
 
     override def readBoolean: Try[Boolean] = Try(StdIn.readBoolean())
 
@@ -26,7 +27,7 @@ object Console {
 
   //Option seria para poder ignorar un caso de error
 
-  implicit object ConsoleOption extends Console[Option] {
+  implicit val ConsoleOption = new Console[Option] {
 
     override def readBoolean: Option[Boolean] = Try(
       StdIn.readBoolean()

@@ -2,6 +2,7 @@ import scala.None
 import scala.io.StdIn
 
 object Ejercicio2 extends App {
+  //sealed es para que solo los objects que esten definidos en el mismo archivo puedan EXTENDER de el, herencia SELLADA
   sealed trait Pronoun
 
   case object Mister extends Pronoun
